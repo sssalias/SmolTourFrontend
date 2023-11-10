@@ -1,6 +1,7 @@
 <template>
-  <input class="input btn" :type="type" :placeholder="placeholder" v-if="btn" :value="value">
-  <input class="input" :type="type" :placeholder="placeholder" v-else>
+  <input :type="type" class="input" :value="value" @input="onInput" @change="onChange">
+<!--  <input class="input btn" :type="type" :placeholder="placeholder" v-if="btn" :value="btnValue">-->
+<!--  <input class="input" :type="type" :placeholder="placeholder" :value="value" @input="onInput" @change="onChange" v-else>-->
 </template>
 
 <script lang="ts">
@@ -9,14 +10,24 @@ import {defineComponent} from 'vue'
 export default defineComponent({
   props: [
       'type',
-      'value',
       'placeholder',
-      'btn'
+      'btn',
+      'value',
+      'btnValue'
   ],
   setup() {
 
 
     return {}
+  },
+  methods: {
+    onInput(event:any):any {
+      console.log(this.value)
+      this.$emit('input', event.target.value);
+    },
+    onChange(event:any):any {
+      this.$emit('change', event.target.value);
+    },
   }
 })
 </script>

@@ -23,8 +23,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/tour/create',
-    name: 'createToure',
+    name: 'createTour',
     component: () => import('@/views/CreateTourView.vue')
+  },
+  {
+    path: '/tour/update',
+    name: 'updateTour',
+    component: () => import('@/views/UpdateTourView.vue')
   },
   {
     path: '/profile',

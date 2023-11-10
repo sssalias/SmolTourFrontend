@@ -61,7 +61,7 @@ export default defineComponent({
           gap: 1rem;
           h1 {
             font-family: 'Montserrat', sans-serif;
-            letter-spacing: .3rem;
+            letter-spacing: 0;
             @include adaptive-font(45, 25);
             //font-size: 45px;
           }
