@@ -3,13 +3,17 @@
     <div class="container">
       <div class="wrapper">
 
-        <div class="logo">
-          <img src="@/assets/media/logo-black.svg">
-        </div>
+        <router-link to="/">
+          <div class="logo">
+            <img src="@/assets/media/logo-black.svg">
+          </div>
+        </router-link>
 
         <nav>
           <a href="">О НАС</a>
-          <a href="" class="btn">ПРОФИЛЬ</a>
+<!--          <a href="" class="btn">ПРОФИЛЬ</a>-->
+          <a v-if="!store.$state.isAuth" href="https://auth.umom.pro/realms/umom-realm/protocol/openid-connect/auth?response_type=code&client_id=umom-client&state=sidyuf8s67dfisdgf&scope=openid profile&redirect_uri=http://localhost:8081/redirect&code_challenge=Q5sbwGdAZcanDavEIs6g_VIz45Ryew_XdheqMRcQcaw&code_challenge_method=S256">ВОЙТИ</a>
+          <router-link v-else to="/profile/info"><a href="">ПРОФИЛЬ</a></router-link>
         </nav>
 
       </div>
@@ -19,8 +23,12 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue'
+import {useUserStore} from "@/store/useUserStore";
 
 export default defineComponent({
+  data: () => ({
+    store: useUserStore()
+  }),
   methods: {
     checkUrl() {
       return this.$route.path === '/';

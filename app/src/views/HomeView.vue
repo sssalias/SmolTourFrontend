@@ -24,9 +24,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
   .wrapper {
-    margin: 240px auto;
+    margin: 160px auto;
     width: 60%;
-    height: 200vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -35,7 +34,6 @@ export default defineComponent({
   }
   @media screen and (max-width: 1200px) {
     .wrapper {
-      margin-top: 800px;
       width: 90%;
     }
   }

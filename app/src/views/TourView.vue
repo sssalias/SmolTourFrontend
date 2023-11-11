@@ -3,22 +3,47 @@
     <div class="img__container">
       <img src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTtFgtmJ9prL1rfIvevG1QARMVFc1zJbFqCFMm1knQdfKSbCfAHDCBFagZO7UcXOVjck5pQoNDi5S6yT1Z1UapuuX2-dfHaUSoUZoByGA" alt="">
     </div>
-    <h1 class="title">Smol</h1>
-    <div class="content">
-      <p>asfasfas</p>
-      <p>asfasf</p>
+    <h1 class="title">{{ tour.title }}</h1>
+    <div class="content" v-html="tour.description">
     </div>
+    <List/>
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue'
+import {useTourIdStore} from "@/store/useTourIdStore";
+import List from "@/components/Reviews/List.vue";
 
 export default defineComponent({
+  components: {List},
   setup() {
 
 
     return {}
+  },
+  data: () => ({
+    store: useTourIdStore(),
+    id: '',
+    tour: {}
+  }),
+  methods: {
+    async getId() {
+      this.id = this.$route.params.id.toString()
+    },
+    async getTour() {
+      await this.store.getTour(this.id)
+          .then(
+              res => {
+                this.tour = res.data
+              }
+          )
+      // console.log(this.tour)
+    }
+  },
+  mounted() {
+    this.getId()
+    this.getTour()
   }
 })
 </script>

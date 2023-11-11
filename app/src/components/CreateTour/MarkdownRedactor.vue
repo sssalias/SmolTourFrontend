@@ -4,7 +4,7 @@
         class="editor"
         aria-placeholder="Описание тура"
         @change="logInfo"
-        v-model="d"
+        v-model="value"
         api-key="hovfw875rn1kj4kjhakr3nf9ybjmgdfyath86ghxpoq1ssud"
         :init="{
          height: 500,
@@ -26,16 +26,18 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import Editor from '@tinymce/tinymce-vue'
+
+import {useTourStore} from "@/store/useToursStore"
 export default defineComponent({
   data: () => ({
-    d: ''
+    value: ''
   }),
   components: {
     'editor': Editor
   },
   methods: {
     logInfo(e:any) {
-      console.log(e.target)
+      useTourStore().$state.value = this.value
     }
   }
 })

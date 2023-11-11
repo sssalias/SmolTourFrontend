@@ -3,11 +3,12 @@
     <div class="container">
       <div class="wrapper">
         <div class="img__wrapper">
-          <img class="img" src="https://encrypted-tbn1.gstatic.com/licensed-image?q=tbn:ANd9GcTtFgtmJ9prL1rfIvevG1QARMVFc1zJbFqCFMm1knQdfKSbCfAHDCBFagZO7UcXOVjck5pQoNDi5S6yT1Z1UapuuX2-dfHaUSoUZoByGA" alt="">
+          <img class="img" :src="image" alt="(">
         </div>
         <div class="content">
-          <h2 class="title">Smol</h2>
-          <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, aperiam assumenda at aut..</p>
+          <h2 class="title">{{ title }}</h2>
+          <p class="company">Автор: <strong>{{ company }}</strong></p>
+          <p class="contact">Контакты: <strong>{{ contact }}</strong></p>
         </div>
 
         <div class="cost">
@@ -23,12 +24,34 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue'
+import useHomeToursList from "@/store/useHomeToursList";
 
 export default defineComponent({
   setup() {
 
 
     return {}
+  },
+  data: () => ({
+    store: useHomeToursList(),
+    image: ''
+  }),
+  props: [
+      'img',
+      'title',
+      'description',
+      'cost',
+      'photo_id',
+      'company',
+      'contact'
+  ],
+  methods: {
+    async getPhoto() {
+      this.image = await this.store.getImage(this.photo_id)
+    }
+  },
+  async mounted() {
+    await this.getPhoto()
   }
 })
 </script>
@@ -36,8 +59,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "@/assets/mixins/_adaptive_font_mixin.scss";
 .item {
+  width: 100%;
   .container {
+    width: 100%;
     .wrapper {
+      width: 100%;
       display: grid;
       grid-template-columns: 20% 65% 15%;
 
@@ -52,7 +78,7 @@ export default defineComponent({
         }
       }
       .content {
-        padding: 0 1rem;
+        padding: 1rem 1rem;
         border-right: 2px solid rgba(17, 34, 17, 0.05);
         border-radius: 2px;
 

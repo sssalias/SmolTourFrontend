@@ -25,11 +25,10 @@
 import {defineComponent} from 'vue'
 import MarkdownRedactor from "@/components/CreateTour/MarkdownRedactor.vue";
 
-import Tour from "../../../models/Tour"
+import Tour from "@/models/Tour"
 
-import axios from "axios"
+import {useTourStore} from "@/store/useToursStore";
 
-import {useTodoStore} from "../../../store/useToursStore";
 
 export default defineComponent({
   components: {MarkdownRedactor},
@@ -39,26 +38,28 @@ export default defineComponent({
     return {}
   },
   data: () => ({
-    store: useTodoStore(),
+    store: useTourStore(),
     titleTour: '',
     company: '',
     contact: '',
     description: '',
     photo_id: 1,
     file: null,
-    response: null
+    response: null,
+    accessToken: localStorage.getItem('access_token')
   }),
   methods: {
-
-    async createTour() {
-      await axios.post('https://umom.pro/tours/post')
-    },
     previewFiles(event:any) {
-      this.file = event.target.files
+      this.file = event.target.files[0]
+      console.log(this.file)
     },
-    getData() {
-      const tour = new Tour(this.titleTour, this.company, 'safasfs', this.contact, this.file, 1)
-      this.store.createTour(tour)
+    async getData() {
+      const tour = new Tour(this.titleTour, this.company, this.store.$state.value, this.contact, this.file, 1)
+      await this.store.uploadImg(tour, this.accessToken)
+          .then(res => {
+            this.store.createTour(tour, this.accessToken, res.data.file_id)
+          })
+      // this.store.createTour(tour, this.accessToken, photoId)
     }
   },
   props: ['title']

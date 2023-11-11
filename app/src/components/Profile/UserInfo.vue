@@ -1,21 +1,50 @@
 <template>
   <div class="container">
     <div class="wrapper">
-      <h2>Alex Efm.</h2>
-      <p>alexn.efm@gmail.com</p>
+      <h2>{{name}}</h2>
+      <p>{{email}}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import {defineComponent} from 'vue'
+import axios from "axios";
 
 export default defineComponent({
   setup() {
 
-
     return {}
+  },
+  data: () => ({
+    name: '',
+    email: ''
+  }),
+  methods: {
+    async getInfo() {
+      await axios.get('https://backend.umom.pro/profile/info', {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('access_token')
+        }
+      })
+          .then(
+            res => {
+              this.name = res.data.name
+              this.email = res.data.email
+              localStorage.setItem('name', this.name)
+              localStorage.setItem('email', this.email)
+            })
+          .catch(
+              e => {
+                console.log(e)
+              }
+          )
+    }
+  },
+  mounted() {
+    this.getInfo()
   }
+
 })
 </script>
 

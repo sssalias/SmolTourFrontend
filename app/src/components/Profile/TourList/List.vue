@@ -6,7 +6,7 @@
         <Item/>
         <Item/>
         <Item/>
-
+        <router-link class="link_a" to="/tour/create">Создать тур</router-link>
       </div>
     </div>
   </div>
@@ -35,6 +35,16 @@ export default defineComponent({
         align-items: center;
         flex-direction: column;
         gap: 2rem;
+
+        .link_a {
+          background: #8DD3BB;
+          color: white;
+          text-decoration: none;
+          width: 100%;
+          padding: 2rem;
+          text-align: center;
+          border-radius: 10px;
+        }
       }
     }
   }
