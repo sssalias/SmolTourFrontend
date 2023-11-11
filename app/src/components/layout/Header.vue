@@ -12,7 +12,7 @@
         <nav>
           <a href="">О НАС</a>
 <!--          <a href="" class="btn">ПРОФИЛЬ</a>-->
-          <a v-if="!store.$state.isAuth" href="https://auth.umom.pro/realms/umom-realm/protocol/openid-connect/auth?response_type=code&client_id=umom-client&state=sidyuf8s67dfisdgf&scope=openid profile&redirect_uri=http://localhost:8081/redirect&code_challenge=Q5sbwGdAZcanDavEIs6g_VIz45Ryew_XdheqMRcQcaw&code_challenge_method=S256">ВОЙТИ</a>
+          <a v-if="!store.$state.isAuth" href="https://auth.umom.pro/realms/umom-realm/protocol/openid-connect/auth?response_type=code&client_id=umom-client&state=sidyuf8s67dfisdgf&scope=openid profile&redirect_uri=https://umom.pro/redirect&code_challenge=Q5sbwGdAZcanDavEIs6g_VIz45Ryew_XdheqMRcQcaw&code_challenge_method=S256">ВОЙТИ</a>
           <router-link v-else to="/profile/info"><a href="">ПРОФИЛЬ</a></router-link>
         </nav>
 
